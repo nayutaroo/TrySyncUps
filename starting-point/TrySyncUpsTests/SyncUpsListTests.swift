@@ -9,12 +9,16 @@ final class SyncUpsListTests: XCTestCase {
     let store = TestStore(initialState: SyncUpsListFeature.State(syncUps: [.mock, .productMock])) {
       SyncUpsListFeature()
     }
+
+    await store.send(.onDelete([1])) { state in
+      state.syncUps.remove(at: 1)
+    }
   }
 
   @MainActor
   func testModel() {
-    let model = SyncUpsListModel(syncUps: [.mock, .productMock])
-    model.onDelete([1])
-    XCTAssertEqual(model.syncUps, [.mock])
+//    let model = SyncUpsListModel(syncUps: [.mock, .productMock])
+//    model.onDelete([1])
+//    XCTAssertEqual(model.syncUps, [.mock])
   }
 }
